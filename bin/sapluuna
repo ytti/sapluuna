@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'pry'
+
+begin
+  require_relative '../lib/sapluuna/cli'
+  k = Sapluuna::CLI.new
+  @debug = k.debug
+  k.run
+rescue => error
+  warn "ERROR: #{error.message} (#{error.class})"
+  raise if @debug
+end
