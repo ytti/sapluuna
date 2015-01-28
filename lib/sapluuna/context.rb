@@ -50,6 +50,7 @@ class Sapluuna
     def method_missing method, *args
       if Array === args.first and args.first.first == :define
         @variables[method] = args.first.last
+        ""
       elsif @variables[method]
         @variables[method]
       else
