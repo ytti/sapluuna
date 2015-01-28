@@ -16,7 +16,7 @@ class Sapluuna
     def initialize
       args, @opts = opts_parse
       @file   = args.shift
-      @labels = @opts[:label].split(',') if @opts[:label]
+      @labels = @opts[:label].split(/[,\s]+/) if @opts[:label]
       @vars   = {}
       @disco  = @opts[:variables]
       args.each do |var|
