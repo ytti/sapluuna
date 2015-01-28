@@ -27,6 +27,10 @@ class Sapluuna
       @output
     end
 
+    def is value
+      [:define, value]
+    end
+
     private
 
     def import file
@@ -44,7 +48,9 @@ class Sapluuna
     end
 
     def method_missing method, *args
-      if @variables[method]
+      if Array === args.first and args.first.first == :define
+        @variables[method] = args.first.last
+      elsif @variables[method]
         @variables[method]
       else
         if @discover_variables
