@@ -8,7 +8,7 @@ class Sapluuna
   class InvalidType < Error; end
 
   def initialize opts
-    @context     = (opts[:context] or Sapluuna::Context)
+    @context     = (opts[:context] or Context)
     @want_labels = read_labels (opts[:labels] or [])
     @context     = @context.new(opts) if @context.class == Class
     @parser      = Parser.new
@@ -66,14 +66,19 @@ class Sapluuna
   def valid_labels? got_labels
     # first/[0] is our positive labels (label)
     # last/[1]  is our negative labels (!label)
-    return true if got_labels.empty?
+
+    # template has label which we explcitly don't want
     return false if (got_labels[0] & @want_labels[1]).size > 0
-    # file has negative label
+
+    # template forbids label which we explicitly want
     return false if (got_labels[1] & @want_labels[0]).size > 0
-    # file has no labels
+
+    # template requires no labels
     return true if got_labels[0].empty?
-    # file has positive labels, do we have at least one of them?
+
+    # template requires labels, do we want at least one of them?
     return false unless (got_labels[0] & @want_labels[0]).size > 0
+
     true
   end
 

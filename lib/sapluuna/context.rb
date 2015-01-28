@@ -31,10 +31,10 @@ class Sapluuna
 
     def import file
       template = File.read resolve_file(file)
-      sapl = Sapluuna.new @opts.dup
-      @output << sapl.parse(template)
+      sapl     = Sapluuna.new @opts.dup
+      output   = sapl.parse template
       @discovered_variables += sapl.discovered_variables
-      ""
+      output
     end
 
     def resolve_file file
@@ -51,7 +51,7 @@ class Sapluuna
           @discovered_variables << method
           ""
         else
-          raise VariableMissing, "variable '#{method}' not found"
+          raise VariableMissing, "variable '#{method}' required, but not given"
         end
       end
     end
