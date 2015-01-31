@@ -1,11 +1,16 @@
 require 'parslet'
+require 'logger'
+require_relative 'class_helpers'
 
 class Sapluuna
 
+  include ClassHelpers
   class Error < StandardError; end
   class InvalidOption < StandardError; end
   class MissingOption < StandardError; end
   class InvalidType < Error; end
+  Log = Logger.new STDERR
+  Log.level = Logger::WARN
 
   def initialize opts
     @context     = (opts[:context] or Context)
@@ -16,6 +21,10 @@ class Sapluuna
 
   def discovered_variables
     @context.discovered_variables
+  end
+
+  def variables
+    @context.variables
   end
 
   def parse input

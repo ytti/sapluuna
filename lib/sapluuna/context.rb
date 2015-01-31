@@ -1,6 +1,6 @@
 class Sapluuna
   class Context
-    attr_reader :discovered_variables
+    attr_reader :discovered_variables, :variables
 
     RootDirectory = '.'
 
@@ -27,15 +27,26 @@ class Sapluuna
       @output
     end
 
+    def are value
+      [:are, value]
+    end
+
     def is value
-      [:define, value]
+      [:is, value]
+    end
+
+    def silent *args
+      ""
     end
 
     private
 
     def import file
       template = File.read resolve_file(file)
-      sapl     = Sapluuna.new @opts.dup
+      @opts[:variables]      = @variables
+      @opts[:root_directory] = @root_directory.dup
+      Log.debug "importing #{file}"
+      sapl     = Sapluuna.new @opts
       output   = sapl.parse template
       @discovered_variables += sapl.discovered_variables
       output
@@ -48,8 +59,14 @@ class Sapluuna
     end
 
     def method_missing method, *args
-      if Array === args.first and args.first.first == :define
-        @variables[method] = args.first.last
+      if Array === args.first
+        value = args.first.last
+        case args.first.first
+        when :is
+          @variables[method] = value
+        when :are
+          @variables[method] = value.to_s.strip.split(/\s+/)
+        end
         ""
       elsif @variables[method]
         @variables[method]

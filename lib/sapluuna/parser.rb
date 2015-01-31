@@ -32,7 +32,7 @@ class Sapluuna
       (template|code|text).repeat >>
       template_close).repeat(1).as(:template)
     }
-    
+
     rule(:file) { (template|text).repeat }
     root :file
   end

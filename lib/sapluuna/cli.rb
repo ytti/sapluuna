@@ -23,7 +23,10 @@ class Sapluuna
         name, value = var.split '='
         @vars[name.to_sym] = value
       end
-      @debug = true if @opts[:debug]
+      if @opts[:debug]
+        @debug = true
+        Log.level = Logger::DEBUG
+      end
     end
 
     def run
