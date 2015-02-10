@@ -9,9 +9,6 @@ class Sapluuna
     rule(:space)       { match(' ').repeat(1) }
     rule(:space?)      { space.maybe }
     rule(:newline)     { match('\n') }
-    rule(:newline?)    { newline.maybe }
-    rule(:whitespace)  { (space|newline).repeat(1) }
-    rule(:whitespace?) { whitespace.maybe }
 
     rule(:template_open)  { space? >> str(TEMPLATE_OPEN) >> space? >> labels.as(:labels).maybe >> newline }
     rule(:template_close) { space? >> str(TEMPLATE_CLOSE)>> space? >> newline }
@@ -36,4 +33,5 @@ class Sapluuna
     rule(:file) { (template|text).repeat }
     root :file
   end
+
 end

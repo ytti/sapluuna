@@ -49,7 +49,7 @@ class Sapluuna
         on 'd' , 'debug',     'turn on debugging'
         on 'l=', 'label',     'commma separated list of labels'
         on 'v',  'variables', 'displays required variables'
-        on 'r',  'root',      'root directory for template import'
+        on 'r=', 'root',      'root directory for template import'
       end
       [opts.parse!, opts]
     end

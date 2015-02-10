@@ -59,10 +59,11 @@ class Sapluuna
     end
 
     def add_indent output, indent_hint
+      return output.join.chomp if output.size < 2
       indent_size = indent_hint.match(/\A\s*/)[0].size
       first_line  = output[0]
-      output = output[1..-1].map { |line| ' ' * indent_size + line } if output.size > 1
-      output.unshift(first_line).join
+      output = output[1..-1].map { |line| ' ' * indent_size + line }
+      output.unshift(first_line).join.chomp
     end
 
     def method_missing method, *args
