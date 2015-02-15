@@ -52,8 +52,7 @@ class Sapluuna
 
   def template templ
     return unless valid_labels? read_labels(templ.shift)
-    templ = templ.shift
-    templ.each do |t|
+    templ.shift.each do |t|
       type = t.shift
       case type
       when :code
