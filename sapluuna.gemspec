@@ -13,7 +13,6 @@ Gem::Specification.new do |s|
   s.executables       = %w( sapluuna )
   s.require_path      = 'lib/sapluuna'
 
-  s.required_ruby_version =           '>= 2.0.0'
-  s.add_runtime_dependency 'parslet', '~> 1.6'
-  #s.add_runtime_dependency 'slop',     '~> 3.5'
+  s.required_ruby_version =        '>= 2.0.0'
+  s.add_runtime_dependency 'slop', '~> 4.0'
 end

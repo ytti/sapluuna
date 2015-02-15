@@ -28,16 +28,13 @@ class Sapluuna
   end
 
   def parse input
-    @parser.parse(input).each do |hash|
-      hash.each do |type, value|
-        case type
-        when :text
-          # we don't care, it's not inside template
-        when :template
-          template value
-        else
-          raise InvalidType, "#{type} was not recognized by parser"
-        end
+    @parser.parse(input).each do |cfg|
+      type = cfg.shift
+      case type
+      when :template
+        template cfg
+      else
+        raise InvalidType, "#{type} was not recognized by parser"
       end
     end
     @context.str
@@ -54,20 +51,19 @@ class Sapluuna
   end
 
   def template templ
-    templ.each do |hash|
-      hash.each do |type, value|
-        case type
-        when :labels
-          return unless valid_labels? read_labels(value.to_str.split)
-        when :code
-          @context.code value.to_str
-        when :text
-          @context.text value.to_str
-        when :template
-          template value
-        else
-          raise InvalidType, "#{type} was not recognized by parser"
-        end
+    return unless valid_labels? read_labels(templ.shift)
+    templ = templ.shift
+    templ.each do |t|
+      type = t.shift
+      case type
+      when :code
+        @context.code t.last
+      when :cfg
+        @context.cfg t.last
+      when :template
+        template t
+      else
+        raise InvalidType, "#{type} was not recognized by parser"
       end
     end
   end

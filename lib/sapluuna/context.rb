@@ -15,7 +15,7 @@ class Sapluuna
       @discovered_variables = []
     end
 
-    def text value
+    def cfg value
       @output << value
     end
 
@@ -50,6 +50,8 @@ class Sapluuna
       output   = sapl.parse template
       @discovered_variables += sapl.discovered_variables
       add_indent output.lines, @output.lines.last
+    rescue => error
+      raise error, "#{error.message} (while reading #{file})"
     end
 
     def resolve_file file

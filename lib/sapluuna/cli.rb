@@ -14,7 +14,8 @@ class Sapluuna
     attr_reader :debug
 
     def initialize
-      args, @opts = opts_parse
+      @opts   = opts_parse
+      args    = @opts.arguments
       @file   = args.shift
       @labels = @opts[:label].split(/[,\s]+/) if @opts[:label]
       @vars   = {}
@@ -23,7 +24,7 @@ class Sapluuna
         name, value = var.split '='
         @vars[name.to_sym] = value
       end
-      if @opts[:debug]
+      if @opts.debug?
         @debug = true
         Log.level = Logger::DEBUG
       end
@@ -44,14 +45,14 @@ class Sapluuna
     private
 
     def opts_parse
-      opts = Slop.parse(help: true) do
-        banner 'Usage: sapluuna [OPTIONS] FILE [variables]'
-        on 'd' , 'debug',     'turn on debugging'
-        on 'l=', 'label',     'commma separated list of labels'
-        on 'v',  'variables', 'displays required variables'
-        on 'r=', 'root',      'root directory for template import'
+      Slop.parse do |o|
+        o.banner = 'Usage: sapluuna [OPTIONS] FILE [variables]'
+        o.bool   '-d', '--debug',     'turn on debugging'
+        o.string '-l', '--label',     'commma separated list of labels'
+        o.bool   '-v', '--variables', 'displays required variables'
+        o.string '-r', '--root',      'root directory for template import'
+        o.on     '-h', '--help' do puts o; exit; end
       end
-      [opts.parse!, opts]
     end
 
     def crash error
