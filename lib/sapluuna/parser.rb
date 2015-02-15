@@ -12,7 +12,6 @@ class Sapluuna
 
     def initialize
       @sc    = StringScanner.new ''
-      @level = nil
     end
 
     def parse input
