@@ -1,4 +1,3 @@
-require 'parslet'
 require 'logger'
 require_relative 'class_helpers'
 
