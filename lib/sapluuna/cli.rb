@@ -10,7 +10,7 @@ end
 
 class Sapluuna
   class CLI
-    ROOT = '/home/ytti/public_html/cfg'
+    ROOT = '.'
     attr_reader :debug
 
     def initialize
