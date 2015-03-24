@@ -4,7 +4,7 @@ class Sapluuna
   class Parser
     CODE_OPEN      = '<%\s*'
     CODE_CLOSE     = '\s*%>'
-    TEMPLATE_OPEN  = '^\s*{{{\s*'
+    TEMPLATE_OPEN  = '^\s*{{{[\t ]*'
     TEMPLATE_CLOSE = '\s*}}}\s*$'
     NEW_LINE       = "\n"
     class ParserError < Error; end
@@ -32,12 +32,8 @@ class Sapluuna
     private
 
     def get_labels
-      if @sc.matched[-1] != NEW_LINE
-        labels = @sc.scan_until Regexp.new(NEW_LINE)
-        labels.strip.split(/\s+/)
-      else
-        []
-      end
+      labels = @sc.scan_until Regexp.new(NEW_LINE)
+      labels.strip.split(/\s+/)
     end
 
     def re_combine *args
