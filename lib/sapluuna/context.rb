@@ -12,7 +12,7 @@ class Sapluuna
       @variables            = (opts.delete(:variables) or {})
       @root_directory       = (opts.delete(:root_directory) or RootDirectory)
       @output               = ''
-      @discovered_variables = []
+      @discovered_variables = {}
     end
 
     def cfg value
@@ -82,7 +82,7 @@ class Sapluuna
         @variables[method]
       else
         if @discover_variables
-          @discovered_variables << method
+          @discovered_variables[method] = *args unless @discovered_variables.has_key? method
           ""
         else
           raise VariableMissing, "variable '#{method}' required, but not given"
