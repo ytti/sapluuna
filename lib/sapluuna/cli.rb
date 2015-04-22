@@ -36,7 +36,7 @@ class Sapluuna
                          discover_variables: @disco,
                          root_directory: (@opts[:root] or ROOT)
       cfg = sap.parse File.read(@file)
-      puts @disco ? sap.discovered_variables : cfg
+      puts @disco ? sap.discovered_variables.keys : cfg
     rescue => error
       crash error
       raise
