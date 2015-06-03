@@ -48,8 +48,8 @@ class Sapluuna
       Log.debug "importing #{file}"
       sapl     = Sapluuna.new @opts
       output   = sapl.parse template
-      @discovered_variables += sapl.discovered_variables
-      add_indent output.lines, @output.lines.last
+      @discovered_variables.merge! sapl.discovered_variables
+      add_indent output.lines, output.lines.last
     rescue => error
       raise error, "#{error.message} (while reading #{file})"
     end
