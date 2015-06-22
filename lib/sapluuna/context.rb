@@ -82,7 +82,7 @@ class Sapluuna
         @variables[method]
       else
         if @discover_variables
-          @discovered_variables[method] = *args[0] unless @discovered_variables.has_key? method
+          @discovered_variables[method] = args[0] unless @discovered_variables.has_key? method
           ""
         else
           raise VariableMissing, "variable '#{method}' required, but not given"
