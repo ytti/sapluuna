@@ -82,6 +82,7 @@ class Sapluuna
         @variables[method]
       else
         if @discover_variables
+          args ||= ['']
           @discovered_variables[method] = args[0] unless @discovered_variables.has_key? method
           ""
         else
