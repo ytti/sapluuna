@@ -49,7 +49,7 @@ class Sapluuna
       sapl     = Sapluuna.new @opts
       output   = sapl.parse template
       @discovered_variables.merge! sapl.discovered_variables
-      add_indent output.lines, output.lines.last
+      add_indent output.lines, @output.lines.last
     rescue => error
       raise error, "#{error.message} (while reading #{file})"
     end
@@ -61,7 +61,7 @@ class Sapluuna
     end
 
     def add_indent output, indent_hint
-      return output.join.chomp if output.size < 2
+      return output.join.chomp if output.size < 2 or not indent_hint
       indent_size = indent_hint.match(/\A\s*/)[0].size
       first_line  = output[0]
       output = output[1..-1].map { |line| ' ' * indent_size + line }
