@@ -4,8 +4,8 @@ class Sapluuna
   class Parser
     CODE_OPEN      = '<%\s*'
     CODE_CLOSE     = '\s*%>'
-    TEMPLATE_OPEN  = '^\s*{{{[\t ]*'
-    TEMPLATE_CLOSE = '\s*}}}\s*$'
+    TEMPLATE_OPEN  = '[\t ]*{{{[\t ]*'
+    TEMPLATE_CLOSE = '[\t ]*}}}[\t ]*\n?'
     NEW_LINE       = "\n"
     class ParserError < Error; end
     class UnterminatedBlock < ParserError; end
