@@ -73,9 +73,9 @@ class Sapluuna
         value = args.first.last
         case args.first.first
         when :is
-          @variables[method] = value
+          @variables[method] = value unless @variables[method]
         when :are
-          @variables[method] = value.to_s.strip.split(/\s+/)
+          @variables[method] = value.to_s.strip.split(/\s+/) unless @variables[method]
         end
         ""
       elsif @variables[method]
