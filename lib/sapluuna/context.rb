@@ -45,6 +45,7 @@ class Sapluuna
       template = File.read resolve_file(file)
       @opts[:variables]      = @variables
       @opts[:root_directory] = @root_directory.dup
+      @opts[:discover_variables] = @discover_variables
       Log.debug "importing #{file}"
       sapl     = Sapluuna.new @opts
       output   = sapl.parse template
@@ -73,9 +74,9 @@ class Sapluuna
         value = args.first.last
         case args.first.first
         when :is
-          @variables[method] = value unless @variables[method]
+          @variables[method] ||= value
         when :are
-          @variables[method] = value.to_s.strip.split(/\s+/) unless @variables[method]
+          @variables[method] ||= value.to_s.strip.split(/\s+/)
         end
         ""
       elsif @variables[method]
