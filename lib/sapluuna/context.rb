@@ -43,9 +43,10 @@ class Sapluuna
 
     def import file
       template = File.read resolve_file(file)
-      @opts[:variables]      = @variables
-      @opts[:root_directory] = @root_directory.dup
+      @opts[:variables]          = @variables
+      @opts[:root_directory]     = @root_directory.dup
       @opts[:discover_variables] = @discover_variables
+      @opts[:context]            = self.class
       Log.debug "importing #{file}"
       sapl     = Sapluuna.new @opts
       output   = sapl.parse template

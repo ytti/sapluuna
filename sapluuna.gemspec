@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name              = 'sapluuna'
-  s.version           = '0.1.7'
+  s.version           = '0.2.0'
   s.licenses          = %w( Apache-2.0 )
   s.platform          = Gem::Platform::RUBY
   s.authors           = [ 'Saku Ytti' ]
@@ -13,6 +13,8 @@ Gem::Specification.new do |s|
   s.executables       = %w( sapluuna )
   s.require_path      = 'lib/sapluuna'
 
-  s.required_ruby_version =        '>= 2.0.0'
-  s.add_runtime_dependency 'slop', '~> 4.0'
+  s.required_ruby_version =            '>= 2.0.0'
+  s.add_runtime_dependency     'slop', '~> 4.0'
+
+  s.add_development_dependency 'rake', '~> 10.0'
 end
